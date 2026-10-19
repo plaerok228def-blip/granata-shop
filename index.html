@@ -1,234 +1,167 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Мой Профиль</title>
+<title>Granata Shop</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;600&display=swap" rel="stylesheet">
 <style>
-    * { box-sizing: border-box; }
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background: #0f0f17;
-        color: #e8e8f0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        margin: 0;
-        padding: 24px;
-    }
-    .card {
-        background: #1a1a28;
-        border-radius: 20px;
-        padding: 32px 28px;
-        max-width: 420px;
-        width: 100%;
-        box-shadow: 0 12px 40px rgba(0,0,0,0.55);
-        text-align: center;
-        border: 1px solid #2a2a3d;
-    }
-    .avatar {
-        width: 80px; height: 80px; margin: 0 auto 15px;
-        background: #22223a; border-radius: 50%;
-        border: 2px solid #e94560; display: flex;
-        align-items: center; justify-content: center; font-size: 32px;
-    }
-    h1 { font-size: 20px; margin: 0 0 5px; color: #e94560; }
-    .username { color: #888; font-size: 14px; margin-bottom: 20px; }
-    .balance-box {
-        background: #22223a; border-radius: 12px; padding: 15px; margin-bottom: 20px;
-        border: 1px solid #2a2a3d;
-    }
-    .balance-title { font-size: 12px; color: #888; text-transform: uppercase; margin-bottom: 5px; }
-    .balance-value { font-size: 28px; font-weight: bold; color: #53a8b6; }
-    .deal-card {
-        background: #22223a; border-radius: 12px; padding: 15px; text-align: left;
-        border-left: 4px solid #e94560; margin-bottom: 15px;
-    }
-    .deal-title { font-weight: bold; font-size: 15px; margin-bottom: 5px; }
-    .deal-text { font-size: 13px; color: #b8b8c8; margin-bottom: 10px; }
-    .deal-link { color: #53a8b6; word-break: break-all; text-decoration: none; }
-    .btn {
-        display: block; background: #e94560; color: #fff;
-        border: none; padding: 15px; border-radius: 30px;
-        font-size: 16px; font-weight: 700; margin-top: 10px;
-        width: 100%; cursor: pointer; text-decoration: none;
-    }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background: linear-gradient(135deg, #1a0000 0%, #2d0a0a 50%, #1a0000 100%);
+    color: #f5f5f5;
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    padding: 20px;
+}
+.container { max-width: 600px; margin: 0 auto; }
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 48px;
+    text-align: center;
+    background: linear-gradient(135deg, #ff1e1e 0%, #8b0000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 30px rgba(255, 30, 30, 0.3);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+.subtitle {
+    text-align: center;
+    color: #b0b0b0;
+    font-size: 14px;
+    margin-bottom: 30px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+.why {
+    background: rgba(139, 0, 0, 0.2);
+    border: 1px solid #8b0000;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+.why h2 {
+    font-family: 'Playfair Display', serif;
+    color: #ff4d4d;
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.why ul { list-style: none; }
+.why li {
+    padding: 8px 0;
+    color: #e0e0e0;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+}
+.why li:last-child { border-bottom: none; }
+.why li::before { content: "🔥 "; margin-right: 8px; }
+.products { display: grid; gap: 15px; }
+.product {
+    background: linear-gradient(135deg, #2d0a0a 0%, #1a0000 100%);
+    border: 1px solid #8b0000;
+    border-radius: 12px;
+    padding: 18px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.product:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 30, 30, 0.3);
+    border-color: #ff1e1e;
+}
+.product h3 {
+    font-family: 'Playfair Display', serif;
+    color: #ff4d4d;
+    font-size: 20px;
+    margin-bottom: 6px;
+}
+.product p {
+    color: #b0b0b0;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.price {
+    color: #ff1e1e;
+    font-weight: 600;
+    font-size: 18px;
+}
+.buy-btn {
+    display: block;
+    width: 100%;
+    margin-top: 30px;
+    padding: 16px;
+    background: linear-gradient(135deg, #ff1e1e 0%, #8b0000 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: transform 0.2s;
+}
+.buy-btn:hover { transform: scale(1.02); }
+.footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #666;
+    font-size: 12px;
+}
 </style>
 </head>
 <body>
-    <div class="card">
-        <div class="avatar">👤</div>
-        <h1 id="userName">Загрузка...</h1>
-        <div class="username" id="userNameTag">@username</div>
-        
-        <div class="balance-box">
-            <div class="balance-title">Ваш баланс</div>
-            <div class="balance-value" id="userBalance">0 звёзд</div>
+<div class="container">
+    <h1>GRANATA SHOP</h1>
+    <div class="subtitle">PREMIUM VAPE STORE</div>
+    
+    <div class="why">
+        <h2>Почему покупать у нас?</h2>
+        <ul>
+            <li>Только оригинальная продукция — никаких подделок</li>
+            <li>Быстрая доставка от 1 до 3 дней по всей России</li>
+            <li>Гарантия качества — проверяем каждую партию</li>
+            <li>Поддержка 24/7 — отвечаем за 5 минут</li>
+            <li>Бонусы за повторные заказы и рефералов</li>
+        </ul>
+    </div>
+    
+    <div class="products">
+        <div class="product">
+            <h3>Blueberry Ice</h3>
+            <p>Черника со льдом — свежий и мягкий вкус. 30 мл, 2% никотина.</p>
+            <div class="price">450 ₽</div>
         </div>
-
-        <div id="dealContainer" style="display:none;">
-            <div class="deal-card">
-                <div class="deal-title">📦 Ваш подарок продан</div>
-                <div class="deal-text">Сумма: <b id="dealPrice">0</b> звёзд</div>
-                <div class="deal-text">Ссылка: <a href="#" class="deal-link" id="dealLink">...</a></div>
-            </div>
-            <a class="btn" id="actionBtn" href="#">Отправить подарок продавцу</a>
+        <div class="product">
+            <h3>Mango Tango</h3>
+            <p>Спелое манго с лёгкой кислинкой. 30 мл, 3% никотина.</p>
+            <div class="price">450 ₽</div>
+        </div>
+        <div class="product">
+            <h3>Strawberry Kiwi</h3>
+            <p>Земляника и киви — сладкий дуэт. 30 мл, 2% никотина.</p>
+            <div class="price">450 ₽</div>
+        </div>
+        <div class="product">
+            <h3>Grape Mint</h3>
+            <p>Виноград с мятой — освежающий вкус. 30 мл, 3% никотина.</p>
+            <div class="price">450 ₽</div>
         </div>
     </div>
-
-    <script>
-        let tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
-
-        const params = new URLSearchParams(window.location.search);
-        const price = params.get('price') || '0';
-        const giftLink = params.get('gift') || '';
-        const targetUser = params.get('to') || '';
-        
-        const user = tg.initDataUnsafe?.user;
-        if (user) {
-            document.getElementById('userName').textContent = user.first_name || 'Пользователь';
-            if (user.username) {
-                document.getElementById('userNameTag').textContent = '@' + user.username;
-            } else {
-                document.getElementById('userNameTag').textContent = 'ID: ' + user.id;
-            }
-        }
-
-        if (price > 0 && giftLink) {
-            document.getElementById('userBalance').textContent = price + ' звёзд (Ожидает)';
-            document.getElementById('dealContainer').style.display = 'block';
-            document.getElementById('dealPrice').textContent = price;
-            
-            const linkEl = document.getElementById('dealLink');
-            linkEl.href = giftLink;
-            linkEl.textContent = giftLink;
-
-            const actionBtn = document.getElementById('actionBtn');
-            // Кнопка отправки подарка продавцу
-            actionBtn.href = 'https://t.me/' + targetUser.replace('@', ''); 
-            actionBtn.textContent = 'Отправить подарок ' + targetUser;
-        }
-    </script>
-</body>
-</html><!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Мой Профиль</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<style>
-    * { box-sizing: border-box; }
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background: #0f0f17;
-        color: #e8e8f0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        margin: 0;
-        padding: 24px;
-    }
-    .card {
-        background: #1a1a28;
-        border-radius: 20px;
-        padding: 32px 28px;
-        max-width: 420px;
-        width: 100%;
-        box-shadow: 0 12px 40px rgba(0,0,0,0.55);
-        text-align: center;
-        border: 1px solid #2a2a3d;
-    }
-    .avatar {
-        width: 80px; height: 80px; margin: 0 auto 15px;
-        background: #22223a; border-radius: 50%;
-        border: 2px solid #e94560; display: flex;
-        align-items: center; justify-content: center; font-size: 32px;
-    }
-    h1 { font-size: 20px; margin: 0 0 5px; color: #e94560; }
-    .username { color: #888; font-size: 14px; margin-bottom: 20px; }
-    .balance-box {
-        background: #22223a; border-radius: 12px; padding: 15px; margin-bottom: 20px;
-        border: 1px solid #2a2a3d;
-    }
-    .balance-title { font-size: 12px; color: #888; text-transform: uppercase; margin-bottom: 5px; }
-    .balance-value { font-size: 28px; font-weight: bold; color: #53a8b6; }
-    .deal-card {
-        background: #22223a; border-radius: 12px; padding: 15px; text-align: left;
-        border-left: 4px solid #e94560; margin-bottom: 15px;
-    }
-    .deal-title { font-weight: bold; font-size: 15px; margin-bottom: 5px; }
-    .deal-text { font-size: 13px; color: #b8b8c8; margin-bottom: 10px; }
-    .deal-link { color: #53a8b6; word-break: break-all; text-decoration: none; }
-    .btn {
-        display: block; background: #e94560; color: #fff;
-        border: none; padding: 15px; border-radius: 30px;
-        font-size: 16px; font-weight: 700; margin-top: 10px;
-        width: 100%; cursor: pointer; text-decoration: none;
-    }
-</style>
-</head>
-<body>
-    <div class="card">
-        <div class="avatar">👤</div>
-        <h1 id="userName">Загрузка...</h1>
-        <div class="username" id="userNameTag">@username</div>
-        
-        <div class="balance-box">
-            <div class="balance-title">Ваш баланс</div>
-            <div class="balance-value" id="userBalance">0 звёзд</div>
-        </div>
-
-        <div id="dealContainer" style="display:none;">
-            <div class="deal-card">
-                <div class="deal-title">📦 Ваш подарок продан</div>
-                <div class="deal-text">Сумма: <b id="dealPrice">0</b> звёзд</div>
-                <div class="deal-text">Ссылка: <a href="#" class="deal-link" id="dealLink">...</a></div>
-            </div>
-            <a class="btn" id="actionBtn" href="#">Отправить подарок продавцу</a>
-        </div>
-    </div>
-
-    <script>
-        let tg = window.Telegram.WebApp;
-        tg.ready();
-        tg.expand();
-
-        const params = new URLSearchParams(window.location.search);
-        const price = params.get('price') || '0';
-        const giftLink = params.get('gift') || '';
-        const targetUser = params.get('to') || '';
-        
-        const user = tg.initDataUnsafe?.user;
-        if (user) {
-            document.getElementById('userName').textContent = user.first_name || 'Пользователь';
-            if (user.username) {
-                document.getElementById('userNameTag').textContent = '@' + user.username;
-            } else {
-                document.getElementById('userNameTag').textContent = 'ID: ' + user.id;
-            }
-        }
-
-        if (price > 0 && giftLink) {
-            document.getElementById('userBalance').textContent = price + ' звёзд (Ожидает)';
-            document.getElementById('dealContainer').style.display = 'block';
-            document.getElementById('dealPrice').textContent = price;
-            
-            const linkEl = document.getElementById('dealLink');
-            linkEl.href = giftLink;
-            linkEl.textContent = giftLink;
-
-            const actionBtn = document.getElementById('actionBtn');
-            // Кнопка отправки подарка продавцу
-            actionBtn.href = 'https://t.me/' + targetUser.replace('@', ''); 
-            actionBtn.textContent = 'Отправить подарок ' + targetUser;
-        }
-    </script>
+    
+    <button class="buy-btn" onclick="tg.close()">Сделать заказ</button>
+    
+    <div class="footer">Granata Shop © 2026</div>
+</div>
+<script>
+let tg = window.Telegram.WebApp;
+tg.ready();
+tg.expand();
+</script>
 </body>
 </html>
 </body>
